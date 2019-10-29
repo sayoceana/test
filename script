@@ -1,0 +1,10 @@
+df <- iris
+regr.calc <- function(x) {
+  correl <- cor.test(x[[1]], x[[2]], method = 'pearson') # depending on cor test we run regression
+  if (correl$p.value < 0.05) { # in case they correlate we perform regression 
+    lm <- lm(x[[1]] ~ x[[2]], x)
+    x$fit <- lm$fitted.values # we insert predicted values of IV into the original df
+    return(x)
+  } else {
+    return("There is no sense in prediction")} #if there is no correlation - we return this message
+}
